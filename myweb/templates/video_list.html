@@ -1,0 +1,112 @@
+{% extends 'home.html' %}
+{% block home %}
+<div class="container">
+   <div class="row">
+      <div class="col-sm-4">
+         <form action="">
+            <table>
+               <tr>
+                  <td>
+                     search text : 
+                  </td>
+                  <td> 
+                     <input class="form-control" name="q" value="{{query}}" placeholder="search">
+                  </td>
+               </tr>
+               <tr>
+                  <td> filter by video duration : </td>
+                  <td><select class="btn btn btn-outline-secondary dropdown-toggle" name="filter">Filter
+                     <option value="0" {% if filter == 0 %}selected="selected"{% endif %}>None </option>
+                     <option value="1" {% if filter == 1 %}selected="selected"{% endif %}>short (<= 4min)</option>
+                     <option value="2" {% if filter == 2 %}selected="selected"{% endif %}>long (> 4min)</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     sort by : 
+                  </td>
+                  <td>
+                     <select class="btn btn-outline-warning dropdown-toggle" name="sort">Sort
+                     <option value="0" {% if sort == 0 %}selected="selected"{% endif %}>None </option>
+                     <option value="1" {% if sort == 1 %}selected="selected"{% endif %}>Uploaded date</option>
+                     <option value="2" {% if sort == 2 %}selected="selected"{% endif %}>Title</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td></td>
+                  <td><p></p>
+                     <input type="submit" class="btn btn-outline-secondary dropdown-toggle"></p>
+                  </td>
+               </tr>
+            </table>
+         </form>
+      </div>
+   </div>
+</div>
+<br>
+<table class="table mb-0">
+   <tbody>
+      {% for video in videos %}
+      <tr>
+         <td>
+            <div>
+               {% if video.cover %}
+               <a href="{{ video.video.url }}">
+               <img src="{{ video.cover.url }}" alt="{{ video.title }}" style="width:350px; height: 190px; object-fit: cover;">
+               </a>
+               {% else %}
+               <span class="text-muted">No Cover</span>
+               {% endif%}
+            </div>
+         </td>
+         <td align="left">
+            <div class="mr-4">
+               <p><strong>{{ video.title }}</strong></p>
+               <p>{{ video.created_date }}</p>
+               <p>
+                  <a href="{{ video.video.url }}" class="btn btn-outline-success btn-sm">
+                  P L A Y <strong>></strong></a>
+               </p>
+               <p>{% if user.is_authenticated %}
+                  <a href="video_edit/{{ video.id }}">
+                  <button type="submit" class="btn btn-outline-danger">
+                  Edit !
+                  </button>
+                  </a>
+                  {% else %}
+                  ! 
+                  {% endif %}
+               </p>
+            </div>
+         </td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>
+<br>
+<div class="container mb-0 float_bottom">
+   {% if videos.has_other_pages %}
+   <ul class="pagination float_bottom">
+      {% if videos.has_previous %}
+      <li><a class="page-link" href="?page={{ videos.previous_page_number }}&filter={{filter}}&sort={{sort}}&q={{query}}">&laquo;</a></li>
+      {% else %}
+      <li class="page-link"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in videos.paginator.page_range %}
+      {% if videos.number == i %}
+      <li class="page-link-active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+      <li><a class="page-link" href="?page={{ i }}&filter={{filter}}&sort={{sort}}&q={{query}}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if videos.has_next %}
+      <li><a class="page-link" href="?page={{ videos.next_page_number }}&filter={{filter}}&sort={{sort}}&q={{query}}">&raquo;</a></li>
+      {% else %}
+      <li class="page-link"><span>&raquo;</span></li>
+      {% endif %}
+      {% endif %}
+   </ul>
+</div>
+{% endblock %}

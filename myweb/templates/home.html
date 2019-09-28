@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="ml-1">
+                {% if user.is_authenticated %}
+                    You are logedin as: 
+                    <strong>{{ user.username }}</strong>
+                {% else %}
+                    Please Do <a href="{% url 'login' %}">Login</a> if you wants to Upload videos.
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-6" align="center">
+            <div class="float-right mr-5">
+                <a href="{% url 'upload_video' %}" class="btn btn-primary">+ Upload video</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+
+<div class="container">  
+{% block home %}
+{% endblock %}
+</div>
+{% endblock %}
