@@ -7,6 +7,12 @@ cd myweb
 pip install -r requirements.txt
 ```
 
+## install dependent libraries
+
+```
+sudo apt install ffmpeg
+```
+
 ## Make migrations
 
 ```
