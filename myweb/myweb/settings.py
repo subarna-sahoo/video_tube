@@ -13,7 +13,7 @@ SECRET_KEY = 'o&g6^hcriijb)gjm)ql8(bn4rditj_t7_o!1zx48-a_%rbd_tx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ec2-34-207-232-153.compute-1.amazonaws.com','34.207.232.153','127.0.0.1']
 
 
 # Application definition
@@ -66,10 +66,20 @@ WSGI_APPLICATION = 'myweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+MYSQL_DB = "video_tube"
+MYSQL_USER = "admin"
+MYSQL_PASSWORD = "CdjlNBCVuLzmV9kp7Em4"
+MYSQL_HOST = "test-apps.cyrleejwdtpf.ap-south-1.rds.amazonaws.com"
+MYSQL_PORT = "3306"
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': MYSQL_DB,
+        'USER': MYSQL_USER,
+        'PASSWORD': MYSQL_PASSWORD,
+        'HOST': MYSQL_HOST,
+        'PORT': MYSQL_PORT,
     }
 }
 
