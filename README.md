@@ -2,8 +2,8 @@
 Video tube application
 * User Registration is available.
 * User needs to logIn before Uploading any video
-* User can watch videos without login to the site.
-* User have the option to * Sort, * Serch and * Filter on the Home Page.
+* Users can watch videos without login to the site.
+* The user has the option to Sort, Search and Filter on the Home Page.
 
 
 ## install required packages 
