@@ -30,7 +30,7 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**3. Database:** create a MySQL database, then set `MYSQL_DB`, `MYSQL_USER` and `MYSQL_PASSWORD` in `myweb/myweb/settings.py`.
+**3. Database:** create a MySQL database, set `MYSQL_DB` and `MYSQL_USER` in `myweb/myweb/settings.py`, and export `MYSQL_PASSWORD` (see [Configuration](#configuration)).
 
 **4. Migrate and run**
 
@@ -49,3 +49,14 @@ python manage.py runserver          # http://localhost:8000
 | `/accounts/login/` | Log in |
 | `/videos/upload` | Upload a video |
 | `/video_edit/<id>/` | Edit a video |
+
+## Configuration
+
+Secrets are read from **environment variables**, so nothing sensitive lives in the code. Copy [`.env.example`](.env.example) to `.env` (it is git-ignored) or export the variables in your shell:
+
+| Variable | Purpose |
+|---|---|
+| `DJANGO_SECRET_KEY` | Django `SECRET_KEY`. If unset, a random key is generated at startup (fine for local dev). |
+| `MYSQL_PASSWORD` | MySQL password |
+
+The same values are stored as **GitHub Actions secrets** on this repo (*Settings → Secrets and variables → Actions*), so CI/CD workflows can use them as `${{ secrets.NAME }}`.
